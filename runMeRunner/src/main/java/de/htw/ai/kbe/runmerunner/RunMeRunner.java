@@ -9,23 +9,24 @@ import java.util.List;
 public class RunMeRunner {
 
     public static void main(String[] args) throws Exception {
+        //Declare 3 Lists for each possible output
         List<String> methodsWithAnnotationList = new ArrayList<>();
         List<String> methodsWithoutAnnotationList = new ArrayList<>();
         List<String> notInvokableMethodsWithAnnotationList = new ArrayList<>();
 
+        //Pass arguments to EasyArguments class to extract them
         EasyArguments options = new EasyArguments(args);
         String className = options.getClassName();
         String reportFile = options.getReportFile();
 
-        System.out.println(className);
-        System.out.println(reportFile);
-
-        //String className = "de.htw.ai.kbe.runmerunner.SampleClass";
-
+        //Get Class
         Class clazz = Class.forName(className);
+        //Get Constructor of clazz
         Constructor constr = clazz.getConstructor();
+        //Instantiate clazz
         Object o = constr.newInstance();
 
+        //Get all Methods of clazz
         Method[] methods = getMethods(clazz);
 
         insertSickMethodNameHere(methods, o, methodsWithAnnotationList, methodsWithoutAnnotationList, notInvokableMethodsWithAnnotationList);
@@ -40,13 +41,17 @@ public class RunMeRunner {
         //printMethodsWithAnnotation(clazz);
         //printMethodsWithoutAnnotation(clazz);
         //printNotInvocableMethodsWithAnnotation(clazz);
+
     }
 
+    //Gets Methods of given class and returns them as an array
     public static Method[] getMethods(Class clazz) {
         return clazz.getDeclaredMethods();
     }
 
 
+    //Check Methods for Annotations and assign them to the right list
+    //Invoke Methods with @RunMe Annotation, if that fails, add them to the proper list with reason
     public static void insertSickMethodNameHere(Method[] methods, Object o, List<String> methodsWithAnnotationList, List<String> methodsWithoutAnnotationList, List<String> notInvokableMethotsWithAnnotationList) {
 
         for (int i = 0; i < methods.length; i++) {
@@ -71,10 +76,12 @@ public class RunMeRunner {
         }
     }
 
+    //Prepares a String that is written into the reportFile
     public static void createReport(String reportFile, List<String> methodsWithAnnotationList, List<String> methodsWithoutAnnotationList, List<String> notInvokableMethotsWithAnnotationList) {
 
     }
 
+    //Prints a list of type String
     public static void listPrintHelper(List<String> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));

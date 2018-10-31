@@ -42,17 +42,26 @@ public class EasyArguments {
 
         } catch (ParseException e) {
             //if classname is not given, write report into given report file
-            System.err.println("An error occured while parsing!");
-            LogWriter.writeLog("report.txt", "Class: no class given Report: Nicht OK");
+            System.err.println("An error occured while parsing the parameters!");
+            LogWriter.writeLog("report.txt", "An error occured while parsing the parameters! Check your input!");
         }
 
     }
 
     public String getClassName() {
+        //if className is null, throw an exception and write a message into the report.txt file
+        if(className == null){
+            LogWriter.writeLog("report.txt", "No Class Name detected! Check your input!");
+            throw new NoClassParameterDefinedException("No Class Name detected! Check your input!");
+        }
         return className;
     }
 
     public String getReportFile() {
+        if(reportFile == null){
+            reportFile = "report.txt";
+            System.out.println("No report file detected, using default 'report.txt'!");
+        }
         return reportFile;
     }
 }
