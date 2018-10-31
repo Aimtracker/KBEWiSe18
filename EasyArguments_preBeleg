@@ -1,0 +1,68 @@
+package de.htw.ai.kbe.runmerunner;
+
+import org.apache.commons.cli.*;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
+;
+
+public class EasyArguments {
+
+    public static Options initOptions(){
+        Options options = new Options();
+
+        Option classNameOpt = new Option("c", true, "Class name");
+        classNameOpt.setRequired(true);
+        options.addOption(classNameOpt);
+
+        Option reportOpt = new Option("o", true, "File name");
+        reportOpt.setRequired(false);
+        options.addOption(reportOpt);
+
+        return options;
+    }
+
+    public static void parseOptions(Options options, String[] args){
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd;
+
+        String className = "";
+        String report = "";
+
+        try {
+            cmd = parser.parse(options, args);
+
+            //Get option values
+            className = cmd.getOptionValue("c");
+            report = cmd.getOptionValue("o");
+            //print option values (if not given = null)
+            System.out.println(className);
+            System.out.println(report);
+
+            //if classname and output file given, write classname into given report file
+            //if only the classname is given, write classname into predefined report file
+            if(cmd.hasOption("c") && cmd.hasOption("o")){
+                writeLog(report, "Class: " + className + " Report: OK");
+            }else if(cmd.hasOption("c")){
+                writeLog("report.txt","Class: " + className + " Report: OK");
+            }
+        } catch (ParseException e) {
+            //if classname is not given, write report into given report file
+            System.err.println("An error occured while parsing!");
+            writeLog("report.txt", "Class: no class given Report: Nicht OK");
+        }
+    }
+
+
+    public static void writeLog(String filename, String text){
+        try (PrintStream out = new PrintStream(new FileOutputStream(filename, true))) {
+            out.println(text);
+        } catch (FileNotFoundException e) {
+            System.err.println("An error occured while writing the log file!");
+            e.printStackTrace();
+        }
+
+    }
+}

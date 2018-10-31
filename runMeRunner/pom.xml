@@ -39,7 +39,7 @@
                     <archive>
                         <manifest>
                             <mainClass>
-                                de.htw.ai.kbe.runmerunner.RunMe
+                                de.htw.ai.kbe.runmerunner.RunMeRunner
                             </mainClass>
                         </manifest>
                     </archive>
