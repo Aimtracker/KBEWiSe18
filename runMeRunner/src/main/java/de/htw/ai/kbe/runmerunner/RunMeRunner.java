@@ -18,9 +18,16 @@ public class RunMeRunner {
         EasyArguments options = new EasyArguments(args);
         String className = options.getClassName();
         String reportFile = options.getReportFile();
+        Class clazz;
+        try{
+            //Get Class
+            clazz = Class.forName(className);
+        }catch(ClassNotFoundException e){
+            System.out.println("Class not found!");
+            LogWriter.writeLog(reportFile, "Class not found!");
+            throw e;
+        }
 
-        //Get Class
-        Class clazz = Class.forName(className);
         //Get Constructor of clazz
         Constructor constr = clazz.getConstructor();
         //Instantiate clazz
