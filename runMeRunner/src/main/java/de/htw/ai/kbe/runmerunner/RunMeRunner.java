@@ -36,6 +36,14 @@ public class RunMeRunner {
         //Get all Methods of clazz
         Method[] methods = getMethods(clazz);
 
+        /**
+         * Aufruf der Methode
+         * @param methods Methoden der Klasse
+         * @param o Objekt das von der Klasse instanziiert wurde
+         * @param methodsWithAnnotationList
+         * @param methodsWithoutAnnotationList
+         * @param notInvokableMethodsWithAnnotationList
+         */
         insertSickMethodNameHere(methods, o, methodsWithAnnotationList, methodsWithoutAnnotationList, notInvokableMethodsWithAnnotationList);
 
         listPrintHelper(methodsWithAnnotationList);
@@ -43,12 +51,6 @@ public class RunMeRunner {
         listPrintHelper(notInvokableMethodsWithAnnotationList);
 
         createReport(reportFile, methodsWithAnnotationList, methodsWithoutAnnotationList, notInvokableMethodsWithAnnotationList);
-
-        //Dev Purpose
-        //printMethodsWithAnnotation(clazz);
-        //printMethodsWithoutAnnotation(clazz);
-        //printNotInvocableMethodsWithAnnotation(clazz);
-
     }
 
     //Gets Methods of given class and returns them as an array
@@ -56,7 +58,7 @@ public class RunMeRunner {
         return clazz.getDeclaredMethods();
     }
 
-
+// Definition der Methode
     //Check Methods for Annotations and assign them to the right list
     //Invoke Methods with @RunMe Annotation, if that fails, add them to the proper list with reason
     public static void insertSickMethodNameHere(Method[] methods, Object o, List<String> methodsWithAnnotationList, List<String> methodsWithoutAnnotationList, List<String> notInvokableMethotsWithAnnotationList) {
@@ -71,11 +73,11 @@ public class RunMeRunner {
                     //try to invoke method
                     methods[i].invoke(o);
                 } catch (IllegalAccessException e) {
-                    notInvokableMethotsWithAnnotationList.add(methods[i].getName() + ": IllegalAccessException");
+                    notInvokableMethotsWithAnnotationList.add(methods[i].getName() + ": IllegalAccessException"); //private, protected
                 } catch (InvocationTargetException e) {
-                    notInvokableMethotsWithAnnotationList.add(methods[i].getName() + ": InvocationTargetException");
+                    notInvokableMethotsWithAnnotationList.add(methods[i].getName() + ": InvocationTargetException"); //falsches objekt übergeben
                 } catch (IllegalArgumentException e) {
-                    notInvokableMethotsWithAnnotationList.add(methods[i].getName() + ": IllegalArgumentException");
+                    notInvokableMethotsWithAnnotationList.add(methods[i].getName() + ": IllegalArgumentException"); //methode wurde falsche parameter übergeben
                 }
             } else {
                 methodsWithoutAnnotationList.add(methods[i].getName());
@@ -85,7 +87,20 @@ public class RunMeRunner {
 
     //Prepares a String that is written into the reportFile
     public static void createReport(String reportFile, List<String> methodsWithAnnotationList, List<String> methodsWithoutAnnotationList, List<String> notInvokableMethotsWithAnnotationList) {
-
+        StringBuilder sb = new StringBuilder();
+        //sb.append("Methodennamen ohne @RunMe:\n");
+        System.out.println("Methodennamen ohne @RunMe:\n");
+        for(String mwa:methodsWithoutAnnotationList){
+            System.out.println(mwa);
+        }
+        System.out.println("Methodennamen mit @RunMe:\n");
+        for(String mwa:methodsWithAnnotationList){
+            System.out.println(mwa);
+        }
+        System.out.println("Nicht-invokierbare Methoden mit @RunMe:\n");
+        for(String mwa:notInvokableMethotsWithAnnotationList){
+            System.out.println(mwa);
+        }
     }
 
     //Prints a list of type String
@@ -94,36 +109,4 @@ public class RunMeRunner {
             System.out.println(list.get(i));
         }
     }
-
-
-    //Dev Purpose only!
-//    public static void printMethodsWithAnnotation(Class clazz) {
-//        Method[] methods = clazz.getDeclaredMethods();
-//        System.out.println("Methodennamen mit @RunMe:");
-//        for (int i = 0; i < methods.length; i++) {
-//            if (methods[i].isAnnotationPresent(RunMe.class)) {
-//                System.out.println(methods[i].getName());
-//            }
-//        }
-//    }
-//
-//    public static void printMethodsWithoutAnnotation(Class clazz) {
-//        Method[] methods = clazz.getDeclaredMethods();
-//        System.out.println("Methodennamen ohne @RunMe:");
-//        for (int i = 0; i < methods.length; i++) {
-//            if (!methods[i].isAnnotationPresent(RunMe.class)) {
-//                System.out.println(methods[i].getName());
-//            }
-//        }
-//    }
-//
-//    public static void printNotInvocableMethodsWithAnnotation(Class clazz) {
-//        Method[] methods = clazz.getDeclaredMethods();
-//        System.out.println("„Nicht-invokierbare“ Methoden mit @RunMe:");
-//        for (int i = 0; i < methods.length; i++) {
-//            if (methods[i].isAnnotationPresent(RunMe.class) && methods[i].getModifiers() == 2) {
-//                System.out.println(methods[i].getName() + ": Private Method");
-//            }
-//        }
-//    }
 }
