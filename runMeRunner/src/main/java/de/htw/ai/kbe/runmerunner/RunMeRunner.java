@@ -88,19 +88,20 @@ public class RunMeRunner {
     //Prepares a String that is written into the reportFile
     public static void createReport(String reportFile, List<String> methodsWithAnnotationList, List<String> methodsWithoutAnnotationList, List<String> notInvokableMethotsWithAnnotationList) {
         StringBuilder sb = new StringBuilder();
-        //sb.append("Methodennamen ohne @RunMe:\n");
-        System.out.println("Methodennamen ohne @RunMe:\n");
+        sb.append("Methodennamen ohne @RunMe:\n");
         for(String mwa:methodsWithoutAnnotationList){
-            System.out.println(mwa);
+            sb.append("\t" + mwa + "\n");
         }
-        System.out.println("Methodennamen mit @RunMe:\n");
+        sb.append("Methodennamen mit @RunMe:\n");
         for(String mwa:methodsWithAnnotationList){
-            System.out.println(mwa);
+            sb.append("\t" + mwa + "\n");
         }
-        System.out.println("Nicht-invokierbare Methoden mit @RunMe:\n");
+        sb.append("Nicht-invokierbare Methoden mit @RunMe:\n");
         for(String mwa:notInvokableMethotsWithAnnotationList){
-            System.out.println(mwa);
+            sb.append("\t" + mwa + "\n");
         }
+
+        LogWriter.writeLog(reportFile, sb.toString());
     }
 
     //Prints a list of type String
