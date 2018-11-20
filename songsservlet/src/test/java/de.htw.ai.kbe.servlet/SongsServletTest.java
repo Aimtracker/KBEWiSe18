@@ -1,4 +1,4 @@
-package de.htw.ai.kbe.echo;
+package de.htw.ai.kbe.servlet;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -13,11 +13,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletConfig;
 
-import de.htw.ai.kbe.echo.EchoServlet;
-
 public class SongsServletTest {
 
-    private EchoServlet servlet;
+    private SongsServlet servlet;
     private MockServletConfig config;
     private MockHttpServletRequest request;
     private MockHttpServletResponse response;
@@ -26,7 +24,7 @@ public class SongsServletTest {
 
     @Before
     public void setUp() throws ServletException {
-        servlet = new EchoServlet();
+        servlet = new SongsServlet();
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
         config = new MockServletConfig();
