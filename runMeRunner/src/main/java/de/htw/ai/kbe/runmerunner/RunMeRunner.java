@@ -9,6 +9,9 @@ import java.util.List;
 public class RunMeRunner {
 
     public static void main(String[] args) throws Exception {
+        for(int i= 0; i < args.length; i++){
+            System.out.println(args[i]);
+        }
         //Declare 3 Lists for each possible output
         List<String> methodsWithAnnotationList = new ArrayList<>();
         List<String> methodsWithoutAnnotationList = new ArrayList<>();
@@ -46,9 +49,9 @@ public class RunMeRunner {
          */
         insertSickMethodNameHere(methods, o, methodsWithAnnotationList, methodsWithoutAnnotationList, notInvokableMethodsWithAnnotationList);
 
-        listPrintHelper(methodsWithAnnotationList);
-        listPrintHelper(methodsWithoutAnnotationList);
-        listPrintHelper(notInvokableMethodsWithAnnotationList);
+        //listPrintHelper(methodsWithAnnotationList);
+        //listPrintHelper(methodsWithoutAnnotationList);
+        //listPrintHelper(notInvokableMethodsWithAnnotationList);
 
         createReport(reportFile, methodsWithAnnotationList, methodsWithoutAnnotationList, notInvokableMethodsWithAnnotationList);
     }
