@@ -1,8 +1,10 @@
-package de.htw.ai.kbe.servlet.marshalling;
+package de.htw.ai.kbe.servlet.marshalling.impl;
 
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,17 +13,14 @@ import de.htw.ai.kbe.servlet.marshalling.IMarshaller;
 import de.htw.ai.kbe.servlet.marshalling.MarshallingException;
 import de.htw.ai.kbe.servlet.pojo.Song;
 
-/**
- * Can read and write JSON files for one or more {@link Song}
- *
- * @version 0.5
- */
 class JsonHandler implements IMarshaller {
+
+    private static final Logger LOG = Logger.getLogger(JsonHandler.class);
 
     //Package wide
     JsonHandler() {
     }
-
+    
     @Override
     public Song readSongFromStream(InputStream is) throws MarshallingException {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -30,11 +29,11 @@ class JsonHandler implements IMarshaller {
             });
         } catch (Exception e) {
             String msg = "Failed to write Songs to stream. " + e.getMessage();
-            System.out.println(msg);
+            LOG.warn(msg);
             throw new MarshallingException(msg);
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     @Override
     public List<Song> readSongsFromStream(InputStream is) throws MarshallingException {
@@ -44,7 +43,7 @@ class JsonHandler implements IMarshaller {
             });
         } catch (Exception e) {
             String msg = "Failed to write Songs to stream. " + e.getMessage();
-            System.out.println(msg);
+            LOG.warn(msg);
             throw new MarshallingException(msg);
         }
     }
@@ -56,7 +55,7 @@ class JsonHandler implements IMarshaller {
             objectMapper.writeValue(os, songs);
         } catch (Exception e) {
             String msg = "Failed to write Songs to stream. " + e.getMessage();
-            System.out.println(msg);
+            LOG.warn(msg);
             throw new MarshallingException(msg);
         }
     }

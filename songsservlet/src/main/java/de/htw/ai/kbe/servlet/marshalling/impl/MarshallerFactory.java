@@ -1,10 +1,11 @@
-package de.htw.ai.kbe.servlet.marshalling;
+package de.htw.ai.kbe.servlet.marshalling.impl;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.htw.ai.kbe.servlet.marshalling.IMarshaller;
+import de.htw.ai.kbe.servlet.utils.Constants;
 
 public final class MarshallerFactory {
 
@@ -34,11 +35,10 @@ public final class MarshallerFactory {
     }
 
     private IMarshaller initMarshaller(String contentType) throws IllegalArgumentException {
-        switch (contentType) {
-            case "application/json":
-                return new JsonHandler();
-            default:
-                throw new IllegalArgumentException("ContentType '" + contentType + "' is not supported!");
+        if(contentType == Constants.CONTENTTYPE_JSON){
+            return new JsonHandler();
+        }else{
+            throw new IllegalArgumentException("ContentType '" + contentType + "' is not supported!");
         }
     }
 }

@@ -15,43 +15,45 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import de.htw.ai.kbe.servlet.marshalling.IMarshaller;
-import de.htw.ai.kbe.servlet.marshalling.MarshallerFactory;
-import de.htw.ai.kbe.servlet.pojo.Song;
+import org.apache.log4j.Logger;
 
-public class DataSource{
+import de.htw.ai.kbe.servlet.marshalling.IMarshaller;
+import de.htw.ai.kbe.servlet.marshalling.MarshallingException;
+import de.htw.ai.kbe.servlet.marshalling.impl.MarshallerFactory;
+import de.htw.ai.kbe.servlet.pojo.Song;
+import de.htw.ai.kbe.servlet.utils.Constants;
+
+public class DataSource implements IDataSource {
 
     private Map<Integer, Song> songs;
+    private static Logger log = Logger.getLogger(DataSource.class);
     private int idCounter;
     private IMarshaller marshaller;
     private String filePath;
 
-    /**
-     * Constructor for datasource
-     *
-     */
     public DataSource() {
         this.songs = new HashMap<>();
     }
 
-    /* (non-Javadoc)
-     * @see de.htw.ai.kbe.servlet.data.IDataSource#load(java.lang.String)
-     */
+    @Override
     public synchronized void load(String filePath) throws IOException {
-        System.out.println("Loading json data from " + filePath);
+        log.info("Loading json data from " + filePath);
         this.filePath = filePath;
         List<Song> songList = new ArrayList<>();
         try {
             if (checkFileForExistance(this.filePath)) {
                 InputStream is = new BufferedInputStream(new FileInputStream(this.filePath));
-                this.marshaller = MarshallerFactory.getInstance().getMarshaller("application/json");
+                this.marshaller = MarshallerFactory.getInstance().getMarshaller(Constants.CONTENTTYPE_JSON);
                 songList = marshaller.readSongsFromStream(is);
             }
         } catch (IllegalArgumentException e) {
             // Can not be thrown at this point
             // But if so, something's really wrong
-            System.err.println(e.getMessage());
+            log.fatal(e.getMessage());
             throw new RuntimeException(e.getMessage());
+        } catch (MarshallingException e) {
+            log.fatal("Failed to read json data! " + e.getMessage());
+            throw new IOException(e.getMessage());
         }
         this.songs = songList.stream().collect(Collectors.toMap(Song::getId, Function.identity()));
         this.idCounter = songs.keySet().stream().max(Integer::compareTo).orElse(0) + 1;
@@ -60,7 +62,7 @@ public class DataSource{
     private boolean checkFileForExistance(String filePath) throws IOException {
         File f = new File(filePath);
         if (!f.exists()) {
-            System.out.println("File does not exist. Creating new file");
+            log.warn("File does not exist. Creating new file");
             f.getParentFile().mkdirs();
             f.createNewFile();
             return false;
@@ -68,37 +70,32 @@ public class DataSource{
         return true;
     }
 
-    /* (non-Javadoc)
-     * @see de.htw.ai.kbe.servlet.data.IDataSource#addSong(de.htw.ai.kbe.servlet.pojo.Song)
-     */
+    @Override
     public synchronized Song addSong(Song newSong) {
         newSong.setId(idCounter++);
         this.songs.put(newSong.getId(), newSong);
         return newSong;
     }
 
-    /* (non-Javadoc)
-     * @see de.htw.ai.kbe.servlet.data.IDataSource#save()
-     */
+    @Override
     public synchronized void save() throws IOException {
-        System.out.println("Saving data to file " + this.filePath);
+        log.info("Saving data to file " + this.filePath);
         try (OutputStream os = new BufferedOutputStream(new FileOutputStream(this.filePath))) {
             this.marshaller.writeSongsToStream(getAllSongs(), os);
-            System.out.println("Sucessfully saved data");
+            log.info("Sucessfully saved data");
+        } catch (MarshallingException e) {
+            log.warn(e.getMessage());
+            throw new IOException(e.getMessage());
         }
     }
 
-    /* (non-Javadoc)
-     * @see de.htw.ai.kbe.servlet.data.IDataSource#getSong(int)
-     */
+    @Override
     public synchronized Song getSong(int id) {
-        System.out.println("getSong(" + id + ")");
+        log.info("getSong(" + id + ")");
         return songs.get(id);
     }
 
-    /* (non-Javadoc)
-     * @see de.htw.ai.kbe.servlet.data.IDataSource#getAllSongs()
-     */
+    @Override
     public synchronized List<Song> getAllSongs() {
         return new ArrayList<>(songs.values());
     }

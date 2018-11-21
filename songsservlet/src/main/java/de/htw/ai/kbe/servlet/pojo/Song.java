@@ -1,17 +1,21 @@
 package de.htw.ai.kbe.servlet.pojo;
-
 public class Song {
-    private int id;
+
+    private Integer id;
     private String title;
     private String artist;
     private String album;
-    private int released;
+    private Integer released;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
-
+    
     public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,11 +43,17 @@ public class Song {
         this.album = album;
     }
 
-    public int getReleased() {
+    public Integer getReleased() {
         return released;
     }
 
-    public void setReleased(int released) {
+    public void setReleased(Integer released) {
         this.released = released;
+    }
+
+    @Override
+    public String toString() {
+        return "Song [id=" + id + ", title=" + title + ", artist=" + artist + ", album=" + album + ", released="
+                + released + "]";
     }
 }
