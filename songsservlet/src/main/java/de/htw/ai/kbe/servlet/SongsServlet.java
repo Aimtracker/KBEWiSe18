@@ -120,10 +120,10 @@ public class SongsServlet extends HttpServlet {
             accepts = Constants.CONTENTTYPE_JSON;
             log.warn("no accept header set in request. Using default: " + accepts);
         }
-        if(accepts == Constants.CONTENTTYPE_JSON){
+        if(accepts.equals(Constants.CONTENTTYPE_JSON)){
             return accepts;
         }else{
-            throw new IllegalArgumentException("Unsupported content type '" + accepts + "'");
+            throw new IllegalArgumentException("rAH Unsupported content type '" + accepts + "'");
         }
     }
 

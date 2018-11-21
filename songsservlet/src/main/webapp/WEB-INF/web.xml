@@ -10,7 +10,7 @@
   <servlet-class>de.htw.ai.kbe.servlet.SongsServlet</servlet-class>
   <init-param>
     <param-name>datasource</param-name>
-    <param-value>/Users/dominikwegner/Downloads/songs.json</param-value>
+    <param-value>/home/s0560115/Downloads/apache-tomcat-9.0.13/webapps/songs.json</param-value>
   </init-param>
 </servlet>
 
