@@ -43,7 +43,7 @@ public class SongsServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         BasicConfigurator.configure();
-        String filePath = config.getServletContext().getRealPath(config.getInitParameter(Constants.DATASOURCE_PARAM));
+        String filePath = config.getInitParameter(Constants.DATASOURCE_PARAM);
 
         try {
             dataSource.load(filePath);
