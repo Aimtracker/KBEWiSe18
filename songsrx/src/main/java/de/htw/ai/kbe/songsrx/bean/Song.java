@@ -4,11 +4,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "song")
 public class Song {
-    private int id;
+    private Integer id;
     private String title;
     private String artist;
     private String album;
-    private int released;
+    private Integer released;
 
     public Song(){
     }
@@ -22,11 +22,11 @@ public class Song {
     }
 
     public static class Builder {
-        private int id;
+        private Integer id;
         private String title;
         private String artist;
         private String album;
-        private int released;
+        private Integer released;
 
         public Builder(String title){
             this.title = title;
@@ -57,11 +57,11 @@ public class Song {
         }
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -89,11 +89,11 @@ public class Song {
         this.album = album;
     }
 
-    public int getReleased() {
+    public Integer getReleased() {
         return released;
     }
 
-    public void setReleased(int released) {
+    public void setReleased(Integer released) {
         this.released = released;
     }
 
