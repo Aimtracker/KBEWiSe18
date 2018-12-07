@@ -8,7 +8,7 @@ import java.util.List;
 public interface ISongList {
     List<Song> getAll();
     Song getById(int id) throws NotFoundException;
-    void add(Song song);
+    Integer add(Song song);
     void update(Song song) throws NotFoundException;
     void delete(int id) throws NotFoundException;
 }

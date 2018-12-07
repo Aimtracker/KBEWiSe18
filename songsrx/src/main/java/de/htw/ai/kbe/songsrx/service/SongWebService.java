@@ -1,47 +1,63 @@
 package de.htw.ai.kbe.songsrx.service;
 
 import de.htw.ai.kbe.songsrx.bean.Song;
+import de.htw.ai.kbe.songsrx.persistence.ISongList;
+import javassist.NotFoundException;
 
+import javax.inject.Inject;
 import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 @Path("songs")
 public class SongWebService {
 
+        @Inject
+        ISongList songList;
+
         @GET
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public Song getSongs() {
-            return new Song.Builder("It's raining men").build();
+        public List<Song> getSongs() {
+            return songList.getAll();
         }
 
         @GET
         @Path("/{id}")
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public Song getSong(@PathParam("id") Integer id){
-                return new Song.Builder("Song").id(id).build();
+        public Response getSong(@PathParam("id") Integer id) throws NotFoundException {
+                Song song = songList.getById(id);
+                return Response.ok(song).build();
         }
 
         @POST
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         @Produces(MediaType.TEXT_PLAIN)
         public Response createSong(@Valid Song song){
-                return Response.ok("Song created! \n" + song).build();
+                Integer id = songList.add(song);
+                return Response.ok("Song added (new id: " + id + ")").build();
         }
 
         @PUT
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         @Path("/{id}")
-        public Response updateSong(@PathParam("id") Integer id, @Valid Song song){
+        public Response updateSong(@PathParam("id") Integer id, @Valid Song song) throws NotFoundException {
+                if(song.getId() != null && id != song.getId()){
+                        throw new BadRequestException("Something is not right here fam");
+                }
+
+                song.setId(id);
+                songList.update(song);
                 return Response.ok("Song updated").build();
         }
 
         @DELETE
         @Path("/{id}")
-        public Response deleteSong(@PathParam("id") Integer id){
-                return Response.ok("Song deleted").build();
+        public Response deleteSong(@PathParam("id") Integer id) throws NotFoundException {
+                songList.delete(id);
+                return Response.ok("Deleted Song with id " + id).build();
         }
 }
