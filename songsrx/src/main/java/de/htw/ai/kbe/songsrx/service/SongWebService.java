@@ -2,6 +2,7 @@ package de.htw.ai.kbe.songsrx.service;
 
 import de.htw.ai.kbe.songsrx.bean.Song;
 import de.htw.ai.kbe.songsrx.persistence.ISongList;
+import de.htw.ai.kbe.songsrx.service.filter.Secured;
 import javassist.NotFoundException;
 
 import javax.inject.Inject;
@@ -34,6 +35,7 @@ public class SongWebService {
         }
 
         @POST
+        @Secured
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         @Produces(MediaType.TEXT_PLAIN)
         public Response createSong(@Valid Song song){

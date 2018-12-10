@@ -6,10 +6,8 @@ import de.htw.ai.kbe.songsrx.persistence.IUserList;
 import javassist.NotFoundException;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 @Path("auth")
 public class AuthWebService {
@@ -18,9 +16,12 @@ public class AuthWebService {
     IAuthorizationService authService;
 
     @GET
+    @Produces(MediaType.TEXT_PLAIN)
     public String authorize(@QueryParam("userId") String userId) throws NotFoundException {
-        authService.authorize(userId);
+        if(userId == null || userId.isEmpty())
+            throw new BadRequestException("No userId was given!");
+        String token = authService.authorize(userId);
         //TO-DO fix this shit
-        return null;
+        return token;
     }
 }

@@ -7,41 +7,38 @@ import de.htw.ai.kbe.songsrx.bean.User;
 import javassist.NotFoundException;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryUserList implements IUserList{
-    private static InMemoryUserList instance = null;
 
     ObjectMapper objectMapper;
     File file;
 
-    public static InMemoryUserList getInstance(){
-        if(instance == null)
-            instance = new InMemoryUserList(new File("/Users/dominikwegner/Documents/Dev/University/kbe/data/users.json"));
-        return instance;
-    }
-
-    private InMemoryUserList(File file){
-        objectMapper = new ObjectMapper();
-        this.file = file;
+    public InMemoryUserList(){
+        this.file = new File("/Users/dominikwegner/Documents/Dev/University/kbe/data/users.json");
     }
 
     @Override
     public User getUserById(String userId) throws NotFoundException {
         List<User> userList = getUsers();
         for(User u : userList){
-            if(u.getUserId() == userId)
+            if(u.getUserId().equals(userId)){
                 return u;
+            }
+
         }
         throw new NotFoundException("No user with userId " + userId + " found!");
     }
 
     private List<User> getUsers(){
-        List<User> songs = new ArrayList<>();
-        try {
-            return objectMapper.readValue(file, new TypeReference<List<Song>>(){});
+        objectMapper = new ObjectMapper();
+
+        try(InputStream inputStream = new FileInputStream(file)){
+            return objectMapper.readValue(inputStream, new TypeReference<List<User>>(){});
         } catch (Exception e) {
             throw new RuntimeException("Failed to load user file!");
         }

@@ -51,6 +51,7 @@ public class InMemorySongList implements ISongList {
     public synchronized Integer add(Song song) {
         song.setId(idCounter++);
         songs.put(song.getId(), song);
+        System.err.println(idCounter);
         return idCounter;
     }
 

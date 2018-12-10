@@ -6,11 +6,11 @@ import javassist.NotFoundException;
 
 import javax.inject.Inject;
 import javax.ws.rs.NotAuthorizedException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AuthorizationService implements IAuthorizationService{
     @Inject
@@ -37,17 +37,12 @@ public class AuthorizationService implements IAuthorizationService{
     }
 
     public String generateToken(){
-        SecureRandom random;
-        try {
-            random = SecureRandom.getInstance("SHA-256");
-            byte bytes[] = new byte[20];
-            random.nextBytes(bytes);
-            String token = bytes.toString();
-            return token;
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-
+        SecureRandom random = new SecureRandom();
+        byte bytes[] = new byte[20];
+        random.nextBytes(bytes);
+        Base64.Encoder encoder = Base64.getUrlEncoder().withoutPadding();
+        String token = encoder.encodeToString(bytes);
+        return token;
     }
 
     @Override
