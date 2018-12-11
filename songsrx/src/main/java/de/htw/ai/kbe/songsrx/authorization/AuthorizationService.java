@@ -5,6 +5,7 @@ import de.htw.ai.kbe.songsrx.persistence.IUserList;
 import javassist.NotFoundException;
 
 import javax.inject.Inject;
+import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.NotAuthorizedException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -28,7 +29,7 @@ public class AuthorizationService implements IAuthorizationService{
         try {
             user = userList.getUserById(userId);
         } catch (NotFoundException e) {
-            throw new NotAuthorizedException("User does not exist!");
+            throw new ForbiddenException("User does not exist!");
         }
 
         String token = generateToken();

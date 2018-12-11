@@ -9,13 +9,15 @@ import javax.inject.Inject;
 import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.util.List;
 
 
 @Path("songs")
 public class SongWebService {
+
+        @Context
+        UriInfo uriInfo;
 
         @Inject
         ISongList songList;
@@ -42,7 +44,10 @@ public class SongWebService {
         @Produces(MediaType.TEXT_PLAIN)
         public Response createSong(@Valid Song song){
                 Integer id = songList.add(song);
-                return Response.ok("Song added (new id: " + id + ")").build();
+                //return Response.ok("Song added (new id: " + id + ")").build();
+                UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+                uriBuilder.path(id.toString());
+                return Response.created(uriBuilder.build()).entity("Song added (new id: " + id + ")").build();
         }
 
         @PUT
@@ -56,7 +61,7 @@ public class SongWebService {
 
                 song.setId(id);
                 songList.update(song);
-                return Response.ok("Song updated").build();
+                return Response.status(Response.Status.NO_CONTENT).build();
         }
 
         @DELETE
@@ -64,6 +69,6 @@ public class SongWebService {
         @Path("/{id}")
         public Response deleteSong(@PathParam("id") Integer id) throws NotFoundException {
                 songList.delete(id);
-                return Response.ok("Deleted Song with id " + id).build();
+                return Response.status(Response.Status.NO_CONTENT).build();
         }
 }
