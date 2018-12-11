@@ -30,7 +30,6 @@ public class InMemorySongList implements ISongList {
             if(s.getId() > idCounter)
                 idCounter = s.getId();
         }
-        //idCounter = defaultList.stream().filter(s -> s.getId() != null).map(Song::getId).max(Comparator.naturalOrder()).orElse(-1)+1;
     }
 
 
@@ -49,7 +48,7 @@ public class InMemorySongList implements ISongList {
 
     @Override
     public synchronized Integer add(Song song) {
-        song.setId(idCounter++);
+        song.setId(++idCounter);
         songs.put(song.getId(), song);
         System.err.println(idCounter);
         return idCounter;

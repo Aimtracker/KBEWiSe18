@@ -21,12 +21,14 @@ public class SongWebService {
         ISongList songList;
 
         @GET
+        @Secured
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public List<Song> getSongs() {
             return songList.getAll();
         }
 
         @GET
+        @Secured
         @Path("/{id}")
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         public Response getSong(@PathParam("id") Integer id) throws NotFoundException {
@@ -44,6 +46,7 @@ public class SongWebService {
         }
 
         @PUT
+        @Secured
         @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
         @Path("/{id}")
         public Response updateSong(@PathParam("id") Integer id, @Valid Song song) throws NotFoundException {
@@ -57,6 +60,7 @@ public class SongWebService {
         }
 
         @DELETE
+        @Secured
         @Path("/{id}")
         public Response deleteSong(@PathParam("id") Integer id) throws NotFoundException {
                 songList.delete(id);

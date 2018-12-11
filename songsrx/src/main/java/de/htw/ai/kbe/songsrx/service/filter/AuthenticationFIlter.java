@@ -20,9 +20,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     @Inject
     IAuthorizationService authService;
 
-    private static final String REALM = "example";
-    private static final String AUTHENTICATION_SCHEME = "Bearer";
-
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
 
@@ -30,17 +27,13 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         String authorizationHeader =
                 requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
-        //ToDo --> Throw 401 when token is not valid!
+        if(authService.isValidToken(authorizationHeader)){
+            System.out.println("Valid Token.");
+        }else{
+            System.err.println("Invalid Token!");
+            abortWithUnauthorized(requestContext);
+        }
         System.err.println(authService.isValidToken(authorizationHeader));
-    }
-
-    private boolean isTokenBasedAuthentication(String authorizationHeader) {
-
-        // Check if the Authorization header is valid
-        // It must not be null and must be prefixed with "Bearer" plus a whitespace
-        // The authentication scheme comparison must be case-insensitive
-        return authorizationHeader != null && authorizationHeader.toLowerCase()
-                .startsWith(AUTHENTICATION_SCHEME.toLowerCase() + " ");
     }
 
     private void abortWithUnauthorized(ContainerRequestContext requestContext) {
@@ -48,13 +41,6 @@ public class AuthenticationFilter implements ContainerRequestFilter {
         // Abort the filter chain with a 401 status code response
         // The WWW-Authenticate header is sent along with the response
         requestContext.abortWith(
-                Response.status(Response.Status.UNAUTHORIZED)
-                        .header(HttpHeaders.WWW_AUTHENTICATE,
-                                AUTHENTICATION_SCHEME + " realm=\"" + REALM + "\"")
-                        .build());
-    }
-
-    private void validateToken(String token) throws Exception {
-        System.err.println(authService.isValidToken(token));
+                Response.status(Response.Status.UNAUTHORIZED).build());
     }
 }
