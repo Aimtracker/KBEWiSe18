@@ -6,12 +6,11 @@ import javassist.NotFoundException;
 
 import javax.inject.Inject;
 import javax.ws.rs.ForbiddenException;
-import javax.ws.rs.NotAuthorizedException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.*;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthorizationService implements IAuthorizationService{
     @Inject

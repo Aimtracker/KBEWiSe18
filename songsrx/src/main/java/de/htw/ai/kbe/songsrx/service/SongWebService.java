@@ -6,7 +6,6 @@ import de.htw.ai.kbe.songsrx.service.filter.Secured;
 import javassist.NotFoundException;
 
 import javax.inject.Inject;
-import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;

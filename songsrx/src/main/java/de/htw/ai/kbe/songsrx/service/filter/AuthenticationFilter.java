@@ -1,6 +1,5 @@
 package de.htw.ai.kbe.songsrx.service.filter;
 
-import de.htw.ai.kbe.songsrx.authorization.AuthorizationService;
 import de.htw.ai.kbe.songsrx.authorization.IAuthorizationService;
 
 import javax.annotation.Priority;

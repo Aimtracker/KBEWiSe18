@@ -2,15 +2,12 @@ package de.htw.ai.kbe.songsrx.persistence;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.htw.ai.kbe.songsrx.bean.Song;
 import de.htw.ai.kbe.songsrx.bean.User;
 import javassist.NotFoundException;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class InMemoryUserList implements IUserList{
