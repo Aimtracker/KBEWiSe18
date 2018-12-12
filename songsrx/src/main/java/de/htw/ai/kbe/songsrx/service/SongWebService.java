@@ -32,9 +32,13 @@ public class SongWebService {
         @Secured
         @Path("/{id}")
         @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-        public Response getSong(@PathParam("id") Integer id) throws NotFoundException {
-                Song song = songList.getById(id);
-                return Response.ok(song).build();
+        public Response getSong(@PathParam("id") Integer id){
+                try {
+                        Song song = songList.getById(id);
+                        return Response.ok(song).build();
+                }catch(NotFoundException e){
+                        return Response.status(Response.Status.NOT_FOUND).build();
+                }
         }
 
         @POST
@@ -66,8 +70,13 @@ public class SongWebService {
         @DELETE
         @Secured
         @Path("/{id}")
-        public Response deleteSong(@PathParam("id") Integer id) throws NotFoundException {
-                songList.delete(id);
-                return Response.status(Response.Status.NO_CONTENT).build();
+        public Response deleteSong(@PathParam("id") Integer id){
+                try{
+                        songList.delete(id);
+                        return Response.status(Response.Status.NO_CONTENT).build();
+                }catch(NotFoundException e){
+                        return Response.status(Response.Status.NOT_FOUND).build();
+                }
+
         }
 }

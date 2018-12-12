@@ -1,8 +1,11 @@
 package de.htw.ai.kbe.songsrx.bean;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "song")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement
 public class Song {
     private Integer id;
     private String title;
