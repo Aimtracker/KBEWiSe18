@@ -23,7 +23,7 @@ public class SongWebService {
 
         @GET
         @Secured
-        @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
         public List<Song> getSongs() {
             return songList.getAll();
         }
@@ -31,7 +31,7 @@ public class SongWebService {
         @GET
         @Secured
         @Path("/{id}")
-        @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
         public Response getSong(@PathParam("id") Integer id){
                 try {
                         Song song = songList.getById(id);
@@ -43,7 +43,7 @@ public class SongWebService {
 
         @POST
         @Secured
-        @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
         @Produces(MediaType.TEXT_PLAIN)
         public Response createSong(@Valid Song song){
                 Integer id = songList.add(song);
@@ -55,7 +55,7 @@ public class SongWebService {
 
         @PUT
         @Secured
-        @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+        @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
         @Path("/{id}")
         public Response updateSong(@PathParam("id") Integer id, @Valid Song song) throws NotFoundException {
                 if(song.getId() != null && id != song.getId()){
