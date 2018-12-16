@@ -55,11 +55,21 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <!--<artifactId>jersey-container-servlet-core</artifactId> -->
             <!-- use the following artifactId if you don't need servlet 2.x compatibility -->
             <artifactId>jersey-container-servlet</artifactId>
-            <version>2.26</version>
+            <version>${jersey.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
@@ -72,7 +82,11 @@
             <artifactId>jersey-media-json-binding</artifactId>
             <version>${jersey.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+            <artifactId>jersey-test-framework-provider-jdk-http</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
