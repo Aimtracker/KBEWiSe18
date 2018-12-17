@@ -27,7 +27,7 @@
 
 
     <build>
-        <finalName>SongsRX</finalName>
+        <finalName>songsRX</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

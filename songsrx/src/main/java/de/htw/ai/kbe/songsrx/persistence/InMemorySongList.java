@@ -69,7 +69,7 @@ public class InMemorySongList implements ISongList {
 
     static List<Song> getDefaultList(){
         objectMapper = new ObjectMapper();
-        try(InputStream inputStream = new FileInputStream(new File("/Users/dominikwegner/Documents/Dev/University/kbe/data/songs.json"))){
+        try(InputStream inputStream = new FileInputStream(new File("/home/s0558234/Downloads/apache-tomcat-8.5.31/webapps/data/songs.json"))){
             return objectMapper.readValue(inputStream,new TypeReference<List<Song>>(){});
         } catch (Exception e) {
             throw new RuntimeException("Failed to load songs file!");

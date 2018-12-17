@@ -16,7 +16,7 @@ public class InMemoryUserList implements IUserList{
     File file;
 
     public InMemoryUserList(){
-        this.file = new File("/Users/dominikwegner/Documents/Dev/University/kbe/data/users.json");
+        this.file = new File("/home/s0558234/Downloads/apache-tomcat-8.5.31/webapps/data/users.json");
     }
 
     @Override
