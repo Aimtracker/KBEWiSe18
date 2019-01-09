@@ -4,9 +4,9 @@ import javax.persistence.*;
 
 @Entity
 public class User {
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Id
     @Column(name="userid")
     private String userId;
     @Column(name="lastname")

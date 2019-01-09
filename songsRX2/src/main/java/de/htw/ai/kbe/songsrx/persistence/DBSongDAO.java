@@ -44,8 +44,6 @@ public class DBSongDAO implements ISongList{
         EntityTransaction transaction = em.getTransaction();
         try {
             transaction.begin();
-            // MUST set the contact in every address
-            //Song songPOST = song;
             Song songPOST = new Song.Builder(song.getTitle()).artist(song.getArtist()).album(song.getAlbum()).released(song.getReleased()).build();
             em.persist(songPOST);
             transaction.commit();
