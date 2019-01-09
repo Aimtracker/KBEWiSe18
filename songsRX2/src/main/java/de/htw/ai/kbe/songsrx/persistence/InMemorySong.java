@@ -10,16 +10,16 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.*;
 
-public class InMemorySongList implements ISongList {
+public class InMemorySong implements ISong {
     private Map<Integer, Song> songs;
     private int idCounter = 0;
     private static ObjectMapper objectMapper;
 
-    public InMemorySongList(){
+    public InMemorySong(){
         this(getDefaultList());
     }
 
-    public InMemorySongList(List<Song> defaultList) {
+    public InMemorySong(List<Song> defaultList) {
         songs = Collections.synchronizedMap(new HashMap<>());
         if (defaultList == null){
             defaultList=new ArrayList<>();
@@ -60,12 +60,12 @@ public class InMemorySongList implements ISongList {
         songs.put(song.getId(), song);
     }
 
-    @Override
-    public synchronized void delete(int id) throws NotFoundException {
-        if(!songs.containsKey(id))
-            throw new NotFoundException("Song not found!");
-        songs.remove(id);
-    }
+//    @Override
+//    public synchronized void delete(int id) throws NotFoundException {
+//        if(!songs.containsKey(id))
+//            throw new NotFoundException("Song not found!");
+//        songs.remove(id);
+//    }
 
     static List<Song> getDefaultList(){
         objectMapper = new ObjectMapper();

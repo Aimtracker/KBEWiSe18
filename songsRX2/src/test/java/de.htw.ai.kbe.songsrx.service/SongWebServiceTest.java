@@ -1,8 +1,8 @@
 //package de.htw.ai.kbe.songsrx.service;
 //
 //import de.htw.ai.kbe.songsrx.bean.Song;
-//import de.htw.ai.kbe.songsrx.persistence.ISongList;
-//import de.htw.ai.kbe.songsrx.persistence.InMemorySongList;
+//import de.htw.ai.kbe.songsrx.persistence.ISong;
+//import de.htw.ai.kbe.songsrx.persistence.InMemorySong;
 //import org.glassfish.hk2.utilities.binding.AbstractBinder;
 //import org.glassfish.jersey.server.ResourceConfig;
 //import org.glassfish.jersey.test.JerseyTest;
@@ -26,7 +26,7 @@
 //
 //            @Override
 //            protected void configure() {
-//                bind(InMemorySongList.class).to(ISongList.class).in(Singleton.class);
+//                bind(InMemorySong.class).to(ISong.class).in(Singleton.class);
 //
 //            }
 //        });

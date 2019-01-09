@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.*;
 import java.util.List;
 
-public class DBSongDAO implements ISongList{
+public class DBSongDAO implements ISong {
 
     @Inject
     private EntityManagerFactory emf;
@@ -60,11 +60,19 @@ public class DBSongDAO implements ISongList{
 
     @Override
     public void update(Song song) throws NotFoundException {
-
-    }
-
-    @Override
-    public void delete(int id) throws NotFoundException {
-
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try{
+            transaction.begin();
+            Song updatedSong = em.find(Song.class, song.getId());
+            updatedSong.setAlbum(song.getAlbum());
+            updatedSong.setArtist(song.getArtist());
+            updatedSong.setReleased(song.getReleased());
+            updatedSong.setTitle(song.getTitle());
+            transaction.commit();
+        }catch (Exception e){
+            transaction.rollback();
+            throw new PersistenceException("Could not persist entity: " + e.toString());
+        }
     }
 }

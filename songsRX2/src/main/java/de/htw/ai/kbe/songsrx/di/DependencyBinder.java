@@ -13,8 +13,8 @@ public class DependencyBinder extends AbstractBinder {
     @Override
     protected void configure() {
         bind(Persistence.createEntityManagerFactory("songDB")).to(EntityManagerFactory.class);
-        bind(DBSongDAO.class).to(ISongList.class).in(Singleton.class);
-        bind(DBUserDAO.class).to(IUserList.class).in(Singleton.class);
+        bind(DBSongDAO.class).to(ISong.class).in(Singleton.class);
+        bind(DBUserDAO.class).to(IUser.class).in(Singleton.class);
         bind(AuthorizationService.class).to(IAuthorizationService.class).in(Singleton.class);
     }
 }

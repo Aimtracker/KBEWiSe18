@@ -1,7 +1,7 @@
 package de.htw.ai.kbe.songsrx.authorization;
 
 import de.htw.ai.kbe.songsrx.bean.User;
-import de.htw.ai.kbe.songsrx.persistence.IUserList;
+import de.htw.ai.kbe.songsrx.persistence.IUser;
 import javassist.NotFoundException;
 
 import javax.inject.Inject;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class AuthorizationService implements IAuthorizationService{
     @Inject
-    private IUserList userList;
+    private IUser userList;
 
     private Map<String, String> userTokens;
 

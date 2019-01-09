@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-public class DBUserDAO implements IUserList {
+public class DBUserDAO implements IUser {
     @Inject
     EntityManagerFactory emf;
 

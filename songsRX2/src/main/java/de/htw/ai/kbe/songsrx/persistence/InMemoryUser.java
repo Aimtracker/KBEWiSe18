@@ -10,12 +10,12 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
-public class InMemoryUserList implements IUserList{
+public class InMemoryUser implements IUser {
 
     ObjectMapper objectMapper;
     File file;
 
-    public InMemoryUserList(){
+    public InMemoryUser(){
         this.file = new File("/Users/dominikwegner/Documents/Dev/University/kbe/data/users.json");
     }
 

@@ -1,8 +1,8 @@
 //package de.htw.ai.kbe.songsrx.service;
 //import de.htw.ai.kbe.songsrx.authorization.AuthorizationService;
 //import de.htw.ai.kbe.songsrx.authorization.IAuthorizationService;
-//import de.htw.ai.kbe.songsrx.persistence.IUserList;
-//import de.htw.ai.kbe.songsrx.persistence.InMemoryUserList;
+//import de.htw.ai.kbe.songsrx.persistence.IUser;
+//import de.htw.ai.kbe.songsrx.persistence.InMemoryUser;
 //import org.glassfish.hk2.utilities.binding.AbstractBinder;
 //import org.glassfish.jersey.server.ResourceConfig;
 //import org.glassfish.jersey.test.JerseyTest;
@@ -24,7 +24,7 @@
 //            @Override
 //            protected void configure() {
 //                bind(AuthorizationService.class).to(IAuthorizationService.class).in(Singleton.class);
-//                bind(InMemoryUserList.class).to(IUserList.class).in(Singleton.class);
+//                bind(InMemoryUser.class).to(IUser.class).in(Singleton.class);
 //
 //            }
 //        });

@@ -1,7 +1,7 @@
 package de.htw.ai.kbe.songsrx.service;
 
 import de.htw.ai.kbe.songsrx.bean.Song;
-import de.htw.ai.kbe.songsrx.persistence.ISongList;
+import de.htw.ai.kbe.songsrx.persistence.ISong;
 import de.htw.ai.kbe.songsrx.service.filter.Secured;
 import javassist.NotFoundException;
 
@@ -19,7 +19,7 @@ public class SongWebService {
     UriInfo uriInfo;
 
     @Inject
-    ISongList songList;
+    ISong songList;
 
     @GET
     @Secured
@@ -71,16 +71,16 @@ public class SongWebService {
         }
     }
 
-    @DELETE
-    @Secured
-    @Path("/{id}")
-    public Response deleteSong(@PathParam("id") Integer id) {
-        try {
-            songList.delete(id);
-            return Response.status(Response.Status.NO_CONTENT).build();
-        } catch (NotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-    }
+//    @DELETE
+//    @Secured
+//    @Path("/{id}")
+//    public Response deleteSong(@PathParam("id") Integer id) {
+//        try {
+//            songList.delete(id);
+//            return Response.status(Response.Status.NO_CONTENT).build();
+//        } catch (NotFoundException e) {
+//            return Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//
+//    }
 }
