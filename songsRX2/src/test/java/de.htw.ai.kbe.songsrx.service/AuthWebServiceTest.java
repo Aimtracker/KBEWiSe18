@@ -1,8 +1,8 @@
 //package de.htw.ai.kbe.songsrx.service;
 //import de.htw.ai.kbe.songsrx.authorization.AuthorizationService;
 //import de.htw.ai.kbe.songsrx.authorization.IAuthorizationService;
-//import de.htw.ai.kbe.songsrx.persistence.IUser;
-//import de.htw.ai.kbe.songsrx.persistence.InMemoryUser;
+//import de.htw.ai.kbe.songsrx.persistence.user.IUser;
+//import de.htw.ai.kbe.songsrx.persistence.user.InMemoryUser;
 //import org.glassfish.hk2.utilities.binding.AbstractBinder;
 //import org.glassfish.jersey.server.ResourceConfig;
 //import org.glassfish.jersey.test.JerseyTest;

@@ -1,7 +1,7 @@
 package de.htw.ai.kbe.songsrx.service;
 
 import de.htw.ai.kbe.songsrx.bean.Song;
-import de.htw.ai.kbe.songsrx.persistence.ISong;
+import de.htw.ai.kbe.songsrx.persistence.song.ISong;
 import de.htw.ai.kbe.songsrx.service.filter.Secured;
 import javassist.NotFoundException;
 

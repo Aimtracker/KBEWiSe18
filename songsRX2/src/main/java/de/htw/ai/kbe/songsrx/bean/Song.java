@@ -1,14 +1,18 @@
 package de.htw.ai.kbe.songsrx.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.util.List;
 
 @Entity
+@Table(name = "songs")
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +22,15 @@ public class Song {
     private String album;
     private Integer released;
 
-    public Song(){
+    @JsonIgnore
+    @XmlTransient
+    @ManyToMany(mappedBy = "songs")
+    private List<SongList> lists;
+
+    public Song() {
     }
 
-    public Song(Builder builder){
+    public Song(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
         this.artist = builder.artist;
@@ -36,31 +45,31 @@ public class Song {
         private String album;
         private Integer released;
 
-        public Builder(String title){
+        public Builder(String title) {
             this.title = title;
         }
 
-        public Builder id(int val){
+        public Builder id(int val) {
             this.id = val;
             return this;
         }
 
-        public Builder artist(String val){
+        public Builder artist(String val) {
             this.artist = val;
             return this;
         }
 
-        public Builder album(String val){
+        public Builder album(String val) {
             this.album = val;
             return this;
         }
 
-        public Builder released(int val){
+        public Builder released(int val) {
             this.released = val;
             return this;
         }
 
-        public Song build(){
+        public Song build() {
             return new Song(this);
         }
     }
@@ -103,6 +112,10 @@ public class Song {
 
     public void setReleased(Integer released) {
         this.released = released;
+    }
+
+    public List<SongList> getLists() {
+        return lists;
     }
 
     @Override

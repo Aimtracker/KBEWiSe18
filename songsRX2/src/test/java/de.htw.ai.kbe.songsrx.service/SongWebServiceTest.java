@@ -1,8 +1,8 @@
 //package de.htw.ai.kbe.songsrx.service;
 //
 //import de.htw.ai.kbe.songsrx.bean.Song;
-//import de.htw.ai.kbe.songsrx.persistence.ISong;
-//import de.htw.ai.kbe.songsrx.persistence.InMemorySong;
+//import de.htw.ai.kbe.songsrx.persistence.song.ISong;
+//import de.htw.ai.kbe.songsrx.persistence.song.InMemorySong;
 //import org.glassfish.hk2.utilities.binding.AbstractBinder;
 //import org.glassfish.jersey.server.ResourceConfig;
 //import org.glassfish.jersey.test.JerseyTest;

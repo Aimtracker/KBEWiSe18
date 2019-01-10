@@ -1,4 +1,4 @@
-package de.htw.ai.kbe.songsrx.persistence;
+package de.htw.ai.kbe.songsrx.persistence.song;
 
 import de.htw.ai.kbe.songsrx.bean.Song;
 import javassist.NotFoundException;
@@ -16,7 +16,7 @@ public class DBSongDAO implements ISong {
     public List<Song> getAll() {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Song> query = em.createQuery("SELECT s FROM Song s", Song.class);
+            TypedQuery<Song> query = em.createQuery("SELECT s FROM songs s", Song.class);
             return query.getResultList();
         } finally {
             em.close();
@@ -32,7 +32,7 @@ public class DBSongDAO implements ISong {
         } finally {
             em.close();
         }
-        if(entity == null){
+        if (entity == null) {
             throw new NotFoundException("No Song with id: " + id + " found!");
         }
         return entity;
@@ -62,7 +62,7 @@ public class DBSongDAO implements ISong {
     public void update(Song song) throws NotFoundException {
         EntityManager em = emf.createEntityManager();
         EntityTransaction transaction = em.getTransaction();
-        try{
+        try {
             transaction.begin();
             Song updatedSong = em.find(Song.class, song.getId());
             updatedSong.setAlbum(song.getAlbum());
@@ -70,7 +70,7 @@ public class DBSongDAO implements ISong {
             updatedSong.setReleased(song.getReleased());
             updatedSong.setTitle(song.getTitle());
             transaction.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             transaction.rollback();
             throw new PersistenceException("Could not persist entity: " + e.toString());
         }

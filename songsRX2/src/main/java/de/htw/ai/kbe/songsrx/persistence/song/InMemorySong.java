@@ -1,4 +1,4 @@
-package de.htw.ai.kbe.songsrx.persistence;
+package de.htw.ai.kbe.songsrx.persistence.song;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,18 +15,18 @@ public class InMemorySong implements ISong {
     private int idCounter = 0;
     private static ObjectMapper objectMapper;
 
-    public InMemorySong(){
+    public InMemorySong() {
         this(getDefaultList());
     }
 
     public InMemorySong(List<Song> defaultList) {
         songs = Collections.synchronizedMap(new HashMap<>());
-        if (defaultList == null){
-            defaultList=new ArrayList<>();
+        if (defaultList == null) {
+            defaultList = new ArrayList<>();
         }
-        defaultList.stream().filter(s -> s.getId() != null).sorted(Comparator.comparing(Song::getId)).forEach(s -> songs.put(s.getId(),s));
-        for(Song s : songs.values()){
-            if(s.getId() > idCounter)
+        defaultList.stream().filter(s -> s.getId() != null).sorted(Comparator.comparing(Song::getId)).forEach(s -> songs.put(s.getId(), s));
+        for (Song s : songs.values()) {
+            if (s.getId() > idCounter)
                 idCounter = s.getId();
         }
     }
@@ -40,7 +40,7 @@ public class InMemorySong implements ISong {
     @Override
     public synchronized Song getById(int id) throws NotFoundException {
         Song song = songs.get(id);
-        if(song == null)
+        if (song == null)
             throw new NotFoundException("Song not found!");
         return song;
     }
@@ -55,7 +55,7 @@ public class InMemorySong implements ISong {
 
     @Override
     public synchronized void update(Song song) throws NotFoundException {
-        if(song.getId() == null || !songs.containsKey(song.getId()))
+        if (song.getId() == null || !songs.containsKey(song.getId()))
             throw new NotFoundException("Song not found!");
         songs.put(song.getId(), song);
     }
@@ -67,10 +67,11 @@ public class InMemorySong implements ISong {
 //        songs.remove(id);
 //    }
 
-    static List<Song> getDefaultList(){
+    static List<Song> getDefaultList() {
         objectMapper = new ObjectMapper();
-        try(InputStream inputStream = new FileInputStream(new File("/home/s0558234/Downloads/apache-tomcat-8.5.31/webapps/data/songs.json"))){
-            return objectMapper.readValue(inputStream,new TypeReference<List<Song>>(){});
+        try (InputStream inputStream = new FileInputStream(new File("/home/s0558234/Downloads/apache-tomcat-8.5.31/webapps/data/songs.json"))) {
+            return objectMapper.readValue(inputStream, new TypeReference<List<Song>>() {
+            });
         } catch (Exception e) {
             throw new RuntimeException("Failed to load songs file!");
         }

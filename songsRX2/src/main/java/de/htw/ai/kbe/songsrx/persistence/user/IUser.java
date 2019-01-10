@@ -1,4 +1,4 @@
-package de.htw.ai.kbe.songsrx.persistence;
+package de.htw.ai.kbe.songsrx.persistence.user;
 
 import de.htw.ai.kbe.songsrx.bean.User;
 import javassist.NotFoundException;

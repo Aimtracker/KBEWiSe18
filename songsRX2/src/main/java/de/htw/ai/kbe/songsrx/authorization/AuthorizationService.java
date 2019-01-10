@@ -1,7 +1,7 @@
 package de.htw.ai.kbe.songsrx.authorization;
 
 import de.htw.ai.kbe.songsrx.bean.User;
-import de.htw.ai.kbe.songsrx.persistence.IUser;
+import de.htw.ai.kbe.songsrx.persistence.user.IUser;
 import javassist.NotFoundException;
 
 import javax.inject.Inject;

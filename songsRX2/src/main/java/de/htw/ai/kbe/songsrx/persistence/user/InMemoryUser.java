@@ -1,4 +1,4 @@
-package de.htw.ai.kbe.songsrx.persistence;
+package de.htw.ai.kbe.songsrx.persistence.user;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
