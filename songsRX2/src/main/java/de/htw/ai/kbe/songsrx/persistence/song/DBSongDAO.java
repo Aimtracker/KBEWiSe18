@@ -16,7 +16,7 @@ public class DBSongDAO implements ISong {
     public List<Song> getAll() {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Song> query = em.createQuery("SELECT s FROM songs s", Song.class);
+            TypedQuery<Song> query = em.createQuery("SELECT s FROM Song s", Song.class);
             return query.getResultList();
         } finally {
             em.close();
