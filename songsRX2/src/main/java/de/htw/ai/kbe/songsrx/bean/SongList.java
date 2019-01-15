@@ -21,7 +21,7 @@ public class SongList {
     @ManyToOne
     private User owner;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "list_song", joinColumns = {@JoinColumn(name = "list_id")}, inverseJoinColumns = {@JoinColumn(name = "song_id")})
     @XmlElementWrapper(name = "songs")
     @XmlElement(name = "song")

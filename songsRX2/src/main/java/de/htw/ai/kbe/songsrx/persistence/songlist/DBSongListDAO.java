@@ -25,6 +25,18 @@ public class DBSongListDAO implements ISongList {
     }
 
     @Override
+    public SongList getListById(int listId){
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<SongList> query = em.createQuery("SELECT l FROM SongList l WHERE l.id = :id", SongList.class);
+            query.setParameter("id", listId);
+            return query.getSingleResult();
+        }catch (NoResultException e){
+            throw new NoSuchElementException("No list with id " + listId + " found");
+        }
+    }
+
+    @Override
     public SongList getListByIdAndUser(int listId, User user) throws NoSuchElementException {
         EntityManager em = emf.createEntityManager();
         try {
@@ -33,7 +45,7 @@ public class DBSongListDAO implements ISongList {
             query.setParameter("user", user);
             return query.getSingleResult();
         }catch (NoResultException e){
-            throw new NoSuchElementException("No list with id " + listId + " for user '" + user.getId() + "' found");
+            throw new NoSuchElementException("No list with id " + listId + " for user '" + user.getId() + " found");
         }
     }
 
@@ -48,7 +60,7 @@ public class DBSongListDAO implements ISongList {
             em.remove(list);
             em.getTransaction().commit();
         } catch (NoResultException e){
-            throw new NoSuchElementException("No list with id " + listId + "' found");
+            throw new NoSuchElementException("No list with id " + listId + " found");
         }catch (Exception e) {
             em.getTransaction().rollback();
             throw new PersistenceException("Could not persist entity: " + e.toString());

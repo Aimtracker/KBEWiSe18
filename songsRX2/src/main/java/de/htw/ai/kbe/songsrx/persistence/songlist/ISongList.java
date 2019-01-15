@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 
 public interface ISongList {
     List<SongList> getListsOfUser(User user);
+    SongList getListById(int listId);
     SongList getListByIdAndUser(int listId, User user) throws NoSuchElementException;
     void delete(int listId) throws NoSuchElementException;
     void persist(SongList list);

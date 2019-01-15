@@ -20,8 +20,6 @@ public class User {
     private String lastName;
     @Column(name = "firstname")
     private String firstName;
-    //@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<SongList> songLists;
 
     public User() {
     }

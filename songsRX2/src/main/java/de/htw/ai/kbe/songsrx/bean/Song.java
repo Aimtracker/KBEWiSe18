@@ -2,6 +2,7 @@ package de.htw.ai.kbe.songsrx.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,9 +25,10 @@ public class Song {
     private String album;
     private Integer released;
 
+
+    @ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
     @JsonIgnore
     @XmlTransient
-    @ManyToMany(mappedBy = "songs")
     private List<SongList> lists;
 
     public Song() {
