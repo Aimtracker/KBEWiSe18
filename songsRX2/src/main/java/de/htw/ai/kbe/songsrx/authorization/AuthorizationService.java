@@ -36,7 +36,7 @@ public class AuthorizationService implements IAuthorizationService{
         return token;
     }
 
-    public String generateToken(){
+    private String generateToken(){
         SecureRandom random = new SecureRandom();
         byte bytes[] = new byte[20];
         random.nextBytes(bytes);
@@ -48,5 +48,18 @@ public class AuthorizationService implements IAuthorizationService{
     @Override
     public boolean isValidToken(String token){
         return userTokens.containsValue(token);
+    }
+
+    @Override
+    public String getUserIdByToken(String token){
+        String key= null;
+        String value=token;
+        for(Map.Entry<String, String> entry: userTokens.entrySet()){
+            if(value.equals(entry.getValue())){
+                key = entry.getKey();
+                break; //breaking because its one to one map
+            }
+        }
+        return key;
     }
 }

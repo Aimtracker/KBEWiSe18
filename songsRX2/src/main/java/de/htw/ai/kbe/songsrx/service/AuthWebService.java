@@ -19,7 +19,6 @@ public class AuthWebService {
         if(userId == null || userId.isEmpty())
             throw new BadRequestException("No userId was given!");
         String token = authService.authorize(userId);
-        //TO-DO fix this shit
         return token;
     }
 }
