@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class TestInMemoryUser implements IUser {
-    private static List<User> storage;
+    public static List<User> storage;
     public TestInMemoryUser(){
         storage = new ArrayList<User>();
         init();
