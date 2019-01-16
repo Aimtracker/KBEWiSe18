@@ -1,6 +1,8 @@
 package de.htw.ai.kbe.songsrx.bean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
@@ -27,7 +29,6 @@ public class Song {
 
 
     @ManyToMany(mappedBy = "songs", fetch = FetchType.EAGER)
-    @JsonIgnore
     @XmlTransient
     private List<SongList> lists;
 
@@ -118,8 +119,13 @@ public class Song {
         this.released = released;
     }
 
+    @JsonbTransient
     public List<SongList> getLists() {
         return lists;
+    }
+
+    public void setLists(List<SongList> lists) {
+        this.lists = lists;
     }
 
     @Override
