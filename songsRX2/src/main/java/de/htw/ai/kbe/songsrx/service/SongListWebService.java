@@ -42,13 +42,21 @@ public class SongListWebService {
     @Secured
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Response getListById(@PathParam("id") Integer id) {
-        SongList list = songList.getListById(id);
-        if (!isPrivate(list)) {
-            return Response.ok(list).build();
-        } else {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+    public Response getListById(@PathParam("id") Integer id){
+        try{
+            SongList list = songList.getListById(id);
+            if (!isPrivate(list)) {
+                return Response.ok(list).build();
+            } else {
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+        }catch (NoSuchElementException e){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }catch (Exception e){
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
+
+
 
     }
 
