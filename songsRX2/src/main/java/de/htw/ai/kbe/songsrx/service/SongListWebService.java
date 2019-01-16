@@ -76,7 +76,7 @@ public class SongListWebService {
     public Response createSongList(@Valid SongList iSongList) {
 
         String token = context.getHeaderString(HttpHeaders.AUTHORIZATION);
-        if(!iSongList.getOwner().getUserId().equals(authService.getUserIdByToken(token))){
+        if(token == null || !iSongList.getOwner().getUserId().equals(authService.getUserIdByToken(token))){
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
@@ -107,7 +107,7 @@ public class SongListWebService {
     public Response deleteSongList(@PathParam("id") int id) {
         String token = context.getHeaderString(HttpHeaders.AUTHORIZATION);
         SongList iSongList = songList.getListById(id);
-        if(!iSongList.getOwner().getUserId().equals(authService.getUserIdByToken(token))){
+        if(token == null || !iSongList.getOwner().getUserId().equals(authService.getUserIdByToken(token))){
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
 
@@ -122,6 +122,9 @@ public class SongListWebService {
 
     private boolean isPrivate(SongList list) {
         String token = context.getHeaderString(HttpHeaders.AUTHORIZATION);
+        if(token == null){
+            return true;
+        }
         String requestingUser = authService.getUserIdByToken(token);
 
         return !(list.isPublic() || list.getOwner().getUserId().equals(requestingUser));

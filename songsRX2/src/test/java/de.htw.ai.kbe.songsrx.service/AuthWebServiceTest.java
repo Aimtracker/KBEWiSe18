@@ -1,9 +1,7 @@
 package de.htw.ai.kbe.songsrx.service;
 import de.htw.ai.kbe.songsrx.authorization.AuthorizationService;
 import de.htw.ai.kbe.songsrx.authorization.IAuthorizationService;
-import de.htw.ai.kbe.songsrx.persistence.song.TestInMemorySong;
 import de.htw.ai.kbe.songsrx.persistence.user.IUser;
-import de.htw.ai.kbe.songsrx.persistence.user.InMemoryUser;
 import de.htw.ai.kbe.songsrx.persistence.user.TestInMemoryUser;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;

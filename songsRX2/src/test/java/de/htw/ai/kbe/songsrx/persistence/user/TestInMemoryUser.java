@@ -1,14 +1,10 @@
 package de.htw.ai.kbe.songsrx.persistence.user;
 
-import de.htw.ai.kbe.songsrx.bean.Song;
 import de.htw.ai.kbe.songsrx.bean.User;
-import de.htw.ai.kbe.songsrx.persistence.song.TestInMemorySong;
 import javassist.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class TestInMemoryUser implements IUser {
     public static List<User> storage;
