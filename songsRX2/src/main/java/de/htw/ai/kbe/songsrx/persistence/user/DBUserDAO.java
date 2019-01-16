@@ -8,8 +8,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 public class DBUserDAO implements IUser {
-    @Inject
+
     EntityManagerFactory emf;
+
+    @Inject
+    public DBUserDAO(EntityManagerFactory emf){
+        this.emf = emf;
+    }
 
     @Override
     public User getUserById(String userId) throws NotFoundException {

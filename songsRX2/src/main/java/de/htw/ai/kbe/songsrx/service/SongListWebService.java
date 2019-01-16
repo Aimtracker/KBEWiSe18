@@ -44,7 +44,7 @@ public class SongListWebService {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Response getListById(@PathParam("id") Integer id) {
         SongList list = songList.getListById(id);
-        if (isPrivate(list)) {
+        if (!isPrivate(list)) {
             return Response.ok(list).build();
         } else {
             return Response.status(Response.Status.UNAUTHORIZED).build();

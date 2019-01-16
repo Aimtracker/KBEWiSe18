@@ -9,8 +9,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class DBSongListDAO implements ISongList {
-    @Inject
+
     EntityManagerFactory emf;
+
+    @Inject
+    public DBSongListDAO(EntityManagerFactory emf){
+        this.emf = emf;
+    }
 
     @Override
     public List<SongList> getListsOfUser(User user) {

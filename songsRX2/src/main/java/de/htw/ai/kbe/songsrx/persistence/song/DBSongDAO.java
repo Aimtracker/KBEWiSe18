@@ -9,8 +9,12 @@ import java.util.List;
 
 public class DBSongDAO implements ISong {
 
-    @Inject
     private EntityManagerFactory emf;
+
+    @Inject
+    public DBSongDAO(EntityManagerFactory emf){
+        this.emf = emf;
+    }
 
     @Override
     public List<Song> getAll() {
