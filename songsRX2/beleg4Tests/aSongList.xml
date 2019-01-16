@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<songList>
+    <isPublic>true</isPublic>
+    <owner>
+        <userId>mmuster</userId>
+    </owner>
+    <songs>
+        <song>
+        <id>2</id>
+        </song>
+        <song>
+        <id>3</id>
+        </song>
+        <song>
+        <id>4</id>
+        </song>
+    </songs>
+</songList>
